@@ -1,0 +1,15 @@
+[Unit]
+Description=RFID reader webserver
+After=network-online.target multi-user.target
+Wants=network-online.target
+
+[Service]
+Type=idle
+User=pi
+ExecStartPre=/bin/sleep 10
+ExecStart=/usr/bin/python3 /opt/pi-rfid-reader/app_reader.py
+KillMode=process
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
