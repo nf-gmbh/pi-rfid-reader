@@ -3,52 +3,8 @@ import RPi.GPIO as GPIO
 from mfrc522 import SimpleMFRC522
 import aiohttp_cors
 import logging
-import time
-import asyncio
 import argparse
-
-
-class RFIDReader:
-    """
-    A class to handle RFID reading and HTTP response generation for an aiohttp web server.
-    """
-
-    def __init__(self, reader):
-        """
-        Initialize the RFIDReader with a given RFID reader device.
-        """
-        self.reader = reader
-
-    async def read_no_block_timeout(self):
-        """
-        Continuously read the RFID until an ID is found or the timeout is reached.
-        """
-        ts_end = time.monotonic() + args.timeout
-        id = self.reader.read_id_no_block()
-        while not id and ts_end > time.monotonic():
-            await asyncio.sleep(0.001)
-            id, text = self.reader.read_no_block()
-        return id, text
-
-    async def scan_handler(self, _):
-        """
-        Handle incoming scan requests, read RFID, and return JSON response.
-        """
-        try:
-            maybe_id, maybe_text = await self.read_no_block_timeout()
-            if maybe_id is not None:
-                data = {
-                    "id": maybe_id,
-                    "text": maybe_text.replace("\u0000", "") if maybe_text else "",
-                }
-                logging.info(f"Scanned ID: {maybe_id}")
-                return web.json_response(data)
-            else:
-                logging.warning("No ID found before timeout")
-                return web.HTTPRequestTimeout()
-        except Exception as ex:
-            log_exception(ex)
-            return web.HTTPBadRequest(reason=str(ex))
+from pi_rfid_reader import PiRFIDReader
 
 
 def setup_logging(log_path):
@@ -102,13 +58,13 @@ async def on_shutdown(app):
 
 
 
-def create_app(reader):
+def create_app():
     """
     Create and configure the aiohttp web application.
     """
     app = web.Application()
     app.on_shutdown.append(on_shutdown)
-    rfid_reader = RFIDReader(reader)
+    rfid_reader = PiRFIDReader(args.timeout)
     cors = aiohttp_cors.setup(app)
     resource = cors.add(app.router.add_resource("/scan"))
     cors.add(
@@ -128,6 +84,5 @@ if __name__ == "__main__":
     args = parse_args()
     setup_logging(args.log)
     logging.info("Startup RFID reader.")
-    reader = SimpleMFRC522()
-    app = create_app(reader)
+    app = create_app()
     web.run_app(app, port=args.port, access_log=None)
