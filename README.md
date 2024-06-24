@@ -36,7 +36,7 @@ Follow these steps to get `pi-rfid-reader` up and running on your Raspberry Pi:
 
 ## Configuration
 
-The application requires you to specify the log file location and the server port. These can be set via command-line arguments when starting the server.
+The application requires you to specify the log file location, the server port and the timeout for the reader. These can be set via command-line arguments when starting the server.
 
 ## Usage
 
