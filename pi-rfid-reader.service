@@ -6,8 +6,8 @@ Wants=network-online.target
 [Service]
 Type=idle
 User=pi
-ExecStartPre=/bin/sleep 10
-ExecStart=/usr/bin/python3 /opt/pi-rfid-reader/src/main.py --log /var/log/pi-rfid-reader/app.log --port 8080 --timeout 5
+ExecStartPre=/bin/sleep 5
+ExecStart=/usr/bin/python3 /opt/pi-rfid-reader/src/main.py --log /var/log/pi-rfid-reader/main.log --port 8080 --timeout 5
 KillMode=process
 Restart=always
 
