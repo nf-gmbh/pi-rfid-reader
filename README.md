@@ -47,8 +47,8 @@ The application requires you to specify the log file location, the server port a
 
 To start the pi-rfid-reader, use the following command:
 
-   ```bash
-   python app.py --log path/to/your/logfile.log --port 8080 --timeout 5
+```bash
+python app.py --log path/to/your/logfile.log --port 8080 --timeout 5
 
 Replace `path/to/your/logfile.log` with the path where you want the logs to be saved and `8080` with your preferred port number. Timeout is optional and defaults to 5sec.
 
@@ -59,6 +59,7 @@ Once the server is running, you can test the RFID scanning functionality by acce
 `http://<raspberry-pi-ip-address>:8080/scan`
 
 This endpoint will attempt to scan an RFID tag and return its ID and text data in JSON format.
+```
 
 ## misc
 
@@ -71,4 +72,3 @@ background = wfrespawn pcmanfm --desktop --profile LXDE-pi
 xdg-autostart = lxsession-xdg-autostart
 chromium = chromium-browser https://example.com --kiosk --noerrdialogs --disable-infobars --no-first-run --ozone-platform=wayland --enable-features=OverlayScrollbar
 ```
-
