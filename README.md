@@ -16,6 +16,11 @@ Before you install and run the `pi-rfid-reader`, ensure you have the following:
 - Python 3.6 or higher installed on your Raspberry Pi
 - MFRC522 RFID reader module properly connected to your Raspberry Pi
 
+## Connect the reader to the pi
+
+![PiZero_FRID-RC522_Steckplatine](https://github.com/nf-gmbh/pi-rfid-reader/assets/308471/e37e41e5-5b9f-4ad3-8e32-744f5c13c7d7)
+Image source: https://devdrik.de/pi-mit-rfid-rc522/
+
 ## Installation
 
 Follow these steps to get `pi-rfid-reader` up and running on your Raspberry Pi:
