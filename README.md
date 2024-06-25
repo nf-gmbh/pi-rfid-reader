@@ -59,3 +59,16 @@ Once the server is running, you can test the RFID scanning functionality by acce
 `http://<raspberry-pi-ip-address>:8080/scan`
 
 This endpoint will attempt to scan an RFID tag and return its ID and text data in JSON format.
+
+## misc
+
+To start in kiosk mode, edit `~/.config/wayfire.ini` and add the following lines:
+
+```
+[autostart]
+panel = wfrespawn wf-panel-pi
+background = wfrespawn pcmanfm --desktop --profile LXDE-pi
+xdg-autostart = lxsession-xdg-autostart
+chromium = chromium-browser https://example.com --kiosk --noerrdialogs --disable-infobars --no-first-run --ozone-platform=wayland --enable-features=OverlayScrollbar
+```
+
